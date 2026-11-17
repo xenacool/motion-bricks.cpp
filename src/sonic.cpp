@@ -94,7 +94,7 @@ void build(Graph & g, neural_runtime & runtime, bool encoder, uint32_t batch=1, 
         auto * w=neural_weight(runtime,"sonic",prefix+".weight");
         auto * b=neural_weight(runtime,"sonic",prefix+".bias");
         auto * product=ggml_mul_mat(c,w,x);
-        ggml_mul_mat_set_prec(product,GGML_PREC_F32);
+        ggml_prec_set_acc(product,GGML_PREC_F32);
         x=ggml_add(c,product,b);
         g.layers.push_back(x);
         if(layer+2<dims.size()) x=ggml_silu(c,x);
